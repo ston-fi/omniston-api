@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package omni.v1alpha1;
+
+enum Blockchain {
+  UNKNOWN = 0;
+  TRON = 195;
+  TON = 607;
+}
+
+enum SwapSettlementMethod {
+  ESCROW = 0;
+  ATOMIC = 1;
+}
