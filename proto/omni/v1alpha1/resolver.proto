@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package omni.v1alpha1;
+
+import "omni/v1alpha1/types.proto";
+import "omni/v1alpha1/trader.proto";
+
+message ConnectRequest {
+}
+
+message SwapQuoteRequestedEvent {
+  string request_id = 1; // SHA-256
+  SwapQuoteRequest swap_quote_request = 2;
+  // Amounts for resolvers adjusted by fees
+  oneof resolver_amount {
+    // Amount of `offer_asset_address` that the resolver will get
+    string offer_units = 3;
+    // Amount of `ask_asset_address` that the resolver will pay
+    string ask_units = 4;
+  }
+  // The timestamp (UTC seconds) of RFQ sent by the trader.
+  sint64 request_timestamp = 5;
+  // Maximum duration since quote generation before the trader must make valid deposit.
+  sint64 quote_validity_timeout = 6;
+  // Minimum duration since trader's deposit before the resolver may start settling the trade.
+  sint64 deposit_settling_delay = 7;
+  // Maximum duration since trader's deposit before the resolver must complete the trade.
+  sint64 resolve_timeout = 8;
+}
+
+message SwapQuoteRequestCancelledEvent {
+  string request_id = 1; // SHA-256
+}
+
+message EscrowDepositedEvent {
+  string request_id = 1; // SHA-256
+  string quote_id = 2; // SHA-256
+  Blockchain blockchain = 3;
+  // Address of escrow contract.
+  string escrow_address = 4;
+  // Address of resolver contract that must send tokens & will receive .
+  string resolver_address = 5;
+  string offer_asset_address = 6;
+  string ask_asset_address = 7;
+  // Amount of `offer_asset_address` that the resolver will get
+  string resolver_offer_units = 8;
+  // Amount of `ask_asset_address` that the resolver will pay
+  string resolver_ask_units = 9;
+  // Max timestamp (UTC seconds) of deposit of ask asset by the resolver.
+  sint64 resolve_deadline = 10;
+}
+
+message MarketEvent {
+  oneof event {
+    SwapQuoteRequestedEvent swap_quote_requested = 1;
+    SwapQuoteRequestCancelledEvent swap_quote_request_cancelled = 2;
+    EscrowDepositedEvent escrow_deposited = 3;
+  }
+}
+
+message ResolverEscrowSwapParams {
+  string resolver_address = 2;
+}
+
+message ResolverAtomicSwapParams {
+  // TODO: Define
+}
+
+message SwapQuoteUpdateRequest {
+  string request_id = 1; // SHA-256
+  // Amount of `offer_asset_address` that the resolver will get
+  string resolver_offer_units = 2;
+  // Amount of `ask_asset_address` that the resolver will pay
+  string resolver_ask_units = 3;
+  oneof params {
+      ResolverEscrowSwapParams escrow = 4;
+      ResolverAtomicSwapParams atomic = 5;
+  }
+}
+
+message SwapQuoteUpdateResponse {}
+
+service ResolverGrpc {
+  rpc ConnectMarket(ConnectRequest) returns (stream MarketEvent) {}
+
+  rpc UpdateSwapQuote(SwapQuoteUpdateRequest) returns (SwapQuoteUpdateResponse) {}
+}
