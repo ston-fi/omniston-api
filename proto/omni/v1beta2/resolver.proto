@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package omni.v1beta1;
+package omni.v1beta2;
 
-import "omni/v1beta1/types.proto";
-import "omni/v1beta1/trader.proto";
+import "omni/v1beta2/types.proto";
+import "omni/v1beta2/trader.proto";
 
 ////////////////////////////////////////////////////////////////////
 // Resolver requests
@@ -150,7 +150,6 @@ message TradeStartedEvent {
   }
 }
 
-
 message ResolverEvent {
   // Contains the `seqno` specified in `ResolverRequest` if the event is a reply to a request.
   // Otherwise this field is empty.
@@ -163,6 +162,7 @@ message ResolverEvent {
     QuoteAcceptedEvent quote_accepted = 12;
     QuoteRejectedEvent quote_rejected = 13;
     TradeStartedEvent trade_started = 20;
+    KeepAlive keep_alive = 100;
   }
 }
 

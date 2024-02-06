@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package omni.v1beta1;
+package omni.v1beta2;
 
-import "omni/v1beta1/types.proto";
+import "omni/v1beta2/types.proto";
 
 // The server hasn't found the deposit in the blockchain yet.
 message DepositNotFound {

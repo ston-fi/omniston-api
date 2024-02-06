@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package omni.v1beta1;
+package omni.v1beta2;
 
 // Blockchain code as defined by SLIP-044.
 //
@@ -15,6 +15,10 @@ enum Blockchain {
 enum SettlementMethod {
   ESCROW = 0;
   //ATOMIC = 1;
+}
+
+message KeepAlive {
+
 }
 
 // Settlement parameters specific to `ESCROW` settlement method.
