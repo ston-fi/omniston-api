@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package omni.v1beta4;
+
+import "omni/v1beta4/resolver/request.proto";
+import "omni/v1beta4/resolver/event.proto";
+
+service ResolverGrpc {
+  // Connects the resolver to the protocol.
+  //
+  // Fatal errors (ex: authentication error) cause gRPC error & disconnect.
+  // The server will return non-fatal errors in the form of events (ex: QuoteRejectedEvent).
+  //
+  // The resolver must start communication by sending `ConnectRequest` to authenticate itself.
+  rpc Open (stream ResolverRequest) returns (stream ResolverEvent){}
+}
