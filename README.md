@@ -1,1 +1,1 @@
-# omni-api
+# omniston-api
