@@ -134,6 +134,9 @@ message TradeStatus {
 
     // The trade has completed (fully or partially filled or fully aborted)
     TradeSettled trade_settled = 91;
+
+    // The service message to keep connection alive
+    KeepAlive keep_alive = 100;
   }
 }
 
