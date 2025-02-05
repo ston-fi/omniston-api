@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package omni_swap_extra.v0001;
+
+message ExtraData {
+  oneof extra {
+    StonFiV1Extra ston_fi_v1 = 1;
+    StonFiV2Extra ston_fi_v2 = 2;
+    DeDustExtra de_dust = 3;
+  }
+}
+
+message StonFiV1Extra {
+  string pool_address = 1;
+  string min_ask_amount = 2;
+}
+
+message StonFiV2Extra {
+  string pool_address = 1;
+  string min_ask_amount = 2;
+}
+
+message DeDustExtra {
+  string pool_address = 1;
+  string min_ask_amount = 2;
+  // Specified in `referralAddress` swap parameter in DeDust SDK.
+  string referrer_address = 3;
+}
