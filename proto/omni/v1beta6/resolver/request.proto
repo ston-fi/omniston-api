@@ -63,11 +63,11 @@ message UpdateQuoteRequest {
   // ID of request as specified by `QuoteRequestedEvent`.
   string rfq_id = 1;
 
-  // Amount of `offer_asset_address` that the resolver will get.
-  string resolver_offer_units = 2;
+  // Amount of `offer_asset_address` that will be exchanged by the trader
+  string offer_units = 2;
 
-  // Amount of `ask_asset_address` that the resolver will pay.
-  string resolver_ask_units = 3;
+  // Amount of `ask_asset_address` that will be received by the trader
+  string ask_units = 3;
 
   // Max timestamp (UTC seconds) of start of the trade.
   //

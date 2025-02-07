@@ -51,23 +51,27 @@ message QuoteAcceptedEvent {
 //
 // The resolver can match `UpdateQuoteRequest` & `QuoteRejectedEvent` using `seqno` field.
 message QuoteRejectedEvent {
-  string message = 1;
-  oneof reason {
-    InvalidParams invalid_params = 10;
-    TraderUnavailable trader_unavailable = 11;
-    InternalError internal_error = 12;
-  }
+  QuoteRejectedCode code = 1;
+  string message = 2;
 }
 
+enum QuoteRejectedCode {
+  // Uncategorized error
+  UNDEFINED = 0;
 
-message InvalidParams {
-  string field_name = 1;
-}
+  // Invalid value of a parameter (ex: invalid address of an asset, invalid RFQ id, etc).
+  INVALID_PARAMETERS = 1;
+  // Asset amount restrictions don't pass RFQ requirements
+  INVALID_AMOUNTS = 2;
+  // Route uses a prohibited intermediate asset
+  ROUTE_PROHIBITED = 3;
+  // Route uses a unverified or prohibited liquidity pool
+  POOL_PROHIBITED = 4;
+  // Transaction emulation produced the result different from quote
+  EMULATION_RESULT_MISMATCH = 5;
 
-message TraderUnavailable {}
-
-message InternalError {
-  uint32 error_code = 2;
+  // Server errors
+  INTERNAL_ERROR = 101;
 }
 
 // Notifies the resolver that the server has invalidated the quote as requested by `InvalidateQuoteRequest`.
