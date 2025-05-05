@@ -8,7 +8,7 @@ import "omni/v1beta6/types/swap.proto";
 import "omni/v1beta6/types/transaction.proto";
 
 ////////////////////////////////////////////////////////////////////
-// Resolver requests
+// Data structures
 ////////////////////////////////////////////////////////////////////
 
 // The payload of connection request.
@@ -22,6 +22,10 @@ message ConnectPayload {
   // The stake contract holds resolver's info, including list of authorized keys.
   string stake_address = 2;
 }
+
+////////////////////////////////////////////////////////////////////
+// Resolver requests
+////////////////////////////////////////////////////////////////////
 
 // Signed connection request authenticating the resolver.
 message ConnectRequest {
