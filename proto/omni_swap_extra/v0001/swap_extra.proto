@@ -7,17 +7,24 @@ message ExtraData {
     StonFiV1Extra ston_fi_v1 = 1;
     StonFiV2Extra ston_fi_v2 = 2;
     DeDustExtra de_dust = 3;
+    TonCoExtra ton_co = 4;
   }
 }
 
 message StonFiV1Extra {
   string pool_address = 1;
   string min_ask_amount = 2;
+
+  // Filled by Omniston service
+  string recommended_min_ask_amount = 50;
 }
 
 message StonFiV2Extra {
   string pool_address = 1;
   string min_ask_amount = 2;
+
+  // Filled by Omniston service
+  string recommended_min_ask_amount = 50;
 }
 
 message DeDustExtra {
@@ -25,4 +32,16 @@ message DeDustExtra {
   string min_ask_amount = 2;
   // Specified in `referralAddress` swap parameter in DeDust SDK.
   string referrer_address = 3;
+
+  // Filled by Omniston service
+  string recommended_min_ask_amount = 50;
+}
+
+message TonCoExtra {
+  string pool_address = 1;
+  string min_ask_amount = 2;
+  string limit_sqrt_price = 3;
+
+  // Filled by Omniston service
+  string recommended_min_ask_amount = 50;
 }
