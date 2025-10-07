@@ -37,7 +37,7 @@ message RequestSettlementParams {
   // Indicates whether a flexible referrer fee can be applied for the quote.
   //
   // Allows inclusion of protocols that have limited support for referral fees.
-  bool flexible_referrer_fee = 4;
+  optional bool flexible_referrer_fee = 4;
 }
 
 // Settlement parameters specific to `SWAP` settlement method.
